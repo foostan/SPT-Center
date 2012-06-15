@@ -1,0 +1,95 @@
+{% extends 'OSPTTestBundle::layout.html.twig' %}
+
+{% block containerClass %}container{% endblock %}
+{% block body %}
+<div class="row">
+<form action="{{ path('test_conduct_state',{'id':test.name, 'state':state.name})}}" method="post">
+
+<div class="span12">
+
+	{# print title #}
+	{% if(state.existTestStaOption('title')) %}
+		<h1>{{state.getTestStaOption('title')}}</h1>
+	{% else %}
+		<h1>{{state.name}}</h1>
+	{% endif %}
+	{# print title-caption #}
+	{% if(state.existTestStaOption('title-caption')) %}
+		<p>{{state.getTestStaOption('title-caption')}}</p>
+	{% endif %}
+</div>
+
+
+{# print contents #}
+{% if(state.existTestStaOption('contents')) %}
+{% autoescape false %}
+<div class="span12">
+	<div class="well">
+		<p>{{state.getTestStaOption('contents')}}</p>
+	</div>
+</div>
+{% endautoescape %}
+{% endif %}
+
+
+{# print questions #}
+{% for item in items %}
+{% autoescape false %}
+<div class="span12">
+	{# print item name#}
+	<h2>{{item.name}}</h2>
+	{# print item statment #}
+	<div class="well">
+		<p>{{item.statement}}</p>
+	</div>
+
+	<table class="table table-striped">
+		<tbody>
+		{% for question in item.getTestIteQuestions() %}
+			<tr>
+				<td>
+					{# print question name #}
+					<h4>{{question.name}}</h4>
+					{# print question statement #}
+					<p>{{question.statement}}</p>
+				</td>
+				<td>
+				{# print choice statment #}
+				{# if True of False question or Single choice question#}
+				{% if question.getTestIteQueType().id < 3 %}
+					{% for choice in question.getTestIteQueChoices() %}
+						<label class="radio"><input type="radio" name="{{item.id}}_{{question.id}}">{{choice.statement}}</label>
+					{% endfor %}
+				{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endautoescape %}
+{% endfor %}
+
+	<input type="hidden" name="next" value="true" />
+	<button class="btn btn-primary pull-right" type="submit">
+		{# print next-btn-text #}
+		{% if(state.existTestStaOption('next-btn-text')) %}
+			{{state.getTestStaOption('next-btn-text')}}
+		{% else %}
+			Go to next
+		{% endif %}
+	
+		{# print next-btn-icon #}
+		{% if(state.existTestStaOption('next-btn-icon')) %}
+			<i class="{{state.getTestStaOption('next-btn-icon')}}"></i>
+		{% else %}
+	 	 	<i class="icon-circle-arrow-right icon-white"></i>
+		{% endif %}
+	</button>
+</form>
+
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+<html>
+<head>
+	<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/js/jquery.regexSelector.js"></script>
+	<link rel="stylesheet" href="/css/hoge.css" type="text/css" />
+	
+
+
+</head>
+<body>
+
+<form action="{{ path('test_problem_edit', {'id':test_id, 'pid':problem_id}) }}" method="post" {{ form_enctype(form) }} novalidate>
+
+	<div>
+		<div id="test_problem">
+			{{ form_widget(form._token)}}
+			{{ form_row(form.name) }}
+			{{ form_row(form.statement) }}
+			<div>
+				
+				<div id="test_problem_test_proQuestions" data-prototype="{{ form_widget(form.test_proQuestions.get('prototype')) | e }}">
+	        		{% for test_proQuestion in form.test_proQuestions %}
+						<div class="question">
+							<div id="test_problem_test_proQuestions_{{ loop.index0}}">
+								{{ form_row(test_proQuestion.name) }}
+								{{ form_row(test_proQuestion.statement) }}
+								{{ form_row(test_proQuestion.pointRate) }}
+								{{ form_row(test_proQuestion.test_proQueType) }}
+								<div>
+
+									<div id="test_problem_test_proQuestions_{{ loop.index0 }}_test_proQueChoices" data-prototype="{{ form_widget(test_proQuestion.test_proQueChoices.get('prototype')) | e }}">
+						        		{% for test_proQueChoice in test_proQuestion.test_proQueChoices %}
+											<div class="choice">
+												<div id="test_problem_test_proQuestions_{{ loop.parent.loop.index0}}_test_proQueChoices_{{ loop.index0 }}">
+													{{ form_row(test_proQueChoice.name) }}
+													{{ form_row(test_proQueChoice.statement) }}
+													{{ form_row(test_proQueChoice.pointRate) }}
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="submit" value="Save Test" />
+</form>
+<a href="{{ path('test_problem_index', {'id':test_id}) }}">Back</a>
+
+{% javascripts
+	'@OSPTTestBundle/Resources/public/js/makeTestProblemForm.js'
+%}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+</body>
+</html>

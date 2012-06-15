@@ -1,0 +1,70 @@
+{% extends 'OSPTTestBundle::layout.html.twig' %}
+
+{% block containerClass %}container{% endblock %}
+{% block body %}
+<div class="row">
+<div class="span12">
+
+<h1>Create a new item</h1>
+<p>Prease input each parameters.</p>
+
+<form class="well" action="{{ path('test_item_new', {'id':test_id}) }}" method="post" {{ form_enctype(form) }} novalidate>
+
+	<div>
+		<div id="test_item">
+			{{ form_widget(form._token)}}
+			{{ form_row(form.name) }}
+			{{ form_row(form.statement) }}
+			<div>
+				
+				<div id="test_item_test_proQuestions" data-prototype="{{ form_widget(form.test_proQuestions.get('prototype')) | e }}">
+					<div><h2>Questions</h2></div>
+	        		{% for test_proQuestion in form.test_proQuestions %}
+						<div class="question">
+							<div id="test_item_test_proQuestions_{{ loop.index0}}">
+								{{ form_row(test_proQuestion.name) }}
+								{{ form_row(test_proQuestion.statement) }}
+								{{ form_row(test_proQuestion.pointRate) }}
+								{{ form_row(test_proQuestion.test_proQueType) }}
+								<div>
+
+									<div id="test_item_test_proQuestions_{{ loop.index0 }}_test_proQueChoices" data-prototype="{{ form_widget(test_proQuestion.test_proQueChoices.get('prototype')) | e }}">
+						        		{% for test_proQueChoice in test_proQuestion.test_proQueChoices %}
+											<div class="choice">
+												<div id="test_item_test_proQuestions_{{ loop.parent.loop.index0}}_test_proQueChoices_{{ loop.index0 }}">
+													{{ form_row(test_proQueChoice.name) }}
+													{{ form_row(test_proQueChoice.statement) }}
+													{{ form_row(test_proQueChoice.pointRate) }}
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="btn-toolbar">
+		<input class="btn btn-primary" type="submit" value="Create a new item" />
+		<a class="btn" href="{{ path('test_item_index', {'id':test_id}) }}">Cansel</a>
+	</div>
+</form>
+
+{% block javascripts %}
+	{% javascripts '@OSPTTestBundle/Resources/public/js/makeTestItemForm.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/ospttest/css/form.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+</div>
+</div>
+{% endblock %}

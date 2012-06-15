@@ -1,0 +1,17 @@
+.question,
+.option
+{
+	padding: 10px;
+	margin: 10px;
+}
+
+.clear
+{
+	both: clear;
+}
+
+.choice{
+	padding: 10px;
+	margin: 10px;
+}
+

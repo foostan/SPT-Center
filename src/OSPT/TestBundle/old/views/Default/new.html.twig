@@ -1,0 +1,20 @@
+{% extends 'OSPTTestBundle::layout.html.twig' %}
+
+{% block containerClass %}container{% endblock %}
+{% block body %}
+<div class="row">
+<div class="span12">
+
+<h1>Create a new test</h1>
+<p>Please input each parameters.</p>
+<form class="well" action="{{ path('test_new') }}" method="post" {{ form_enctype(form) }} novalidate>
+	{{ form_widget(form) }}
+	<div class="btn-toolbar">
+		<input class="btn btn-primary" type="submit" value="Create a new test" />
+		<a class="btn" href="{{ path('test_manage') }}">Cansel</a>
+	</div>
+</form>
+
+</div>
+</div>
+{% endblock %}

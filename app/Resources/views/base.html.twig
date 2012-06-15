@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Le styles -->
+		<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+		<style type="text/css">
+			body {
+				padding-top: 20px;
+				padding-bottom: 40px;
+			}
+			.sidebar-nav {
+				padding: 9px 0;
+			}
+		</style>
+		<link href="{{ asset('css/bootstrap-responsive.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/jquery.cleditor.css') }}" rel="stylesheet">
+		{% block stylesheets %}{% endblock %}
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<!-- Le fav and touch icons -->
+		<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('ico/logo-b-144.png') }}">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('ico/logo-b-114.png') }}">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('ico/logo-b-72.png') }}">
+		<link rel="apple-touch-icon-precomposed" href="{{ asset('ico/logo-b-57.png') }}">
+	</head>
+
+	<body>
+
+		<div class="{% block containerClass %}{% endblock %}">
+
+			<div class="navbar">
+				<div class="navbar-inner">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+	
+					<div class="container">
+						{% if app.request.get('_route') == 'test_index' %}
+							<a class="nav" href="{{ path('test_index') }}"><img src="{{ asset('ico/logo-w-40.png')}}"></a>
+						{% else %}
+							<a class="nav" href="{{ path('test_index') }}"><img src="{{ asset('ico/logo-g-40.png')}}"></a>
+						{% endif %}
+
+						<div class="nav-collapse">
+							<ul class="nav">
+								<li class="divider-vertical"></li>
+	
+								{% if app.user.haveRole('ROLE_LEARNER') %}
+								<li{% if app.request.get('_route') == '' %} class="active" {% endif %} >
+									<a href="{{ path('test_index')}}"><i class="icon-inbox icon-white"></i> Report</a>
+								</li>
+								{% endif %}
+	
+								{% if app.user.haveRole('ROLE_TEACHER') %}
+								<li class="divider-vertical"></li>
+								<li{% if app.request.get('_route') == '' %} class="active" {% endif %} ><a href="{{ path('test_index')}}">My Learners</a></li>
+								{% endif %}
+	
+								{% if app.user.haveRole('ROLE_DEVELOPER') %}
+								<li class="divider-vertical"></li>
+								<li{% if app.request.get('_route') == 'test_manage' %} class="active" {% endif %} ><a href="{{ path('test_manage')}}">Manage Tests</a></li>
+								{% endif %}
+	
+								{% if app.user.haveRole('ROLE_ADMIN') %}
+								<li class="divider-vertical"></li>
+								<li{% if app.request.get('_route') == '' %} class="active" {% endif %} ><a href="{{ path('test_index')}}">Manage Users</a></li>
+								{% endif %}
+	
+							</ul>
+							<ul class="nav pull-right">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-user icon-white"></i> {{ app.user.username }} 
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><i class="icon-cog"></i> Config</a></li>
+										<li><a href="{{ path('logout') }}"><i class="icon-off"></i> Logout</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<!-- Main unit -->
+			{% block body %}{% endblock %}
+			<hr>
+			<footer>
+				<p>Developed and Operated by Niimura and Kunimune Laboratory, Shinshu University.</p>
+			</footer>
+
+		</div> <!-- /container -->
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="{{ asset('js/jquery.js') }}"></script>
+		<script src="{{ asset('js/jquery.regexSelector.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-transition.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-alert.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-modal.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-dropdown.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-scrollspy.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-tab.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-tooltip.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-popover.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-button.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-collapse.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-carousel.js') }}"></script>
+		<script src="{{ asset('js/bootstrap-typeahead.js') }}"></script>
+		<script src="{{ asset('js/jquery.cleditor.js') }}"></script>
+<script type="text/javascript">
+		</script>
+		{% block javascripts %}{% endblock %}
+
+	</body>
+</html>
+

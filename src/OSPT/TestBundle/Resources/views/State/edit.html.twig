@@ -1,0 +1,51 @@
+{% extends 'OSPTTestBundle::layout.html.twig' %}
+
+{% block containerClass %}container{% endblock %}
+{% block body %}
+<div class="row">
+<div class="span12">
+
+<h1>Edit the state</h1>
+<p>Prease input each parameters.</p>
+
+<form class="well" action="{{ path('test_state_edit', {'id':test_id, 'sid':test_sid}) }}" method="post" {{ form_enctype(form) }} novalidate>
+	<div>
+		<div id="test_state">
+			{{ form_widget(form._token)}}
+			{{ form_row(form.name) }}
+			{{ form_row(form.test_staType) }}
+			<div>
+				<div id="test_state_test_StaOptions" data-prototype="{{ form_widget(form.test_StaOptions.get('prototype')) | e }}">
+	        		{% for test_staOption in form.test_StaOptions %}
+						<div class="option">
+							<div id="test_state_test_StaOptions_{{ loop.index0}}">
+								{{ form_row(test_staOption.name) }}
+								{{ form_row(test_staOption.value) }}
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="btn-toolbar">
+		<input class="btn btn-primary" type="submit" value="Update the state" />
+		<a class="btn" href="{{ path('test_state_index', {'id':test_id}) }}">Cansel</a>
+	</div>
+
+</form>
+
+{% block javascripts %}
+	{% javascripts '@OSPTTestBundle/Resources/public/js/makeTestStateForm.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/ospttest/css/form.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+</div>
+</div>
+{% endblock %}

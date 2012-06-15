@@ -1,0 +1,81 @@
+# about default actions
+test_index:
+    pattern:  /
+    defaults: { _controller: OSPTTestBundle:Default:index }
+
+test_manage:
+    pattern:  /manage
+    defaults: { _controller: OSPTTestBundle:Default:manage }
+
+test_new:
+    pattern:  /new
+    defaults: { _controller: OSPTTestBundle:Default:new }
+
+test_home:
+    pattern:  /{id}
+    defaults: { _controller: OSPTTestBundle:Default:home }
+
+test_view:
+    pattern:  /{id}/view
+    defaults: { _controller: OSPTTestBundle:Default:view }
+
+test_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: OSPTTestBundle:Default:edit }
+
+test_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: OSPTTestBundle:Default:delete }
+
+# about item actions
+test_item_index:
+    pattern:  /{id}/item
+    defaults: { _controller: OSPTTestBundle:Item:index }
+
+test_item_new:
+    pattern: /{id}/item/new
+    defaults: { _controller: OSPTTestBundle:Item:new }
+
+test_item_view:
+    pattern: /{id}/item/{pid}/view
+    defaults: { _controller: OSPTTestBundle:Item:view }
+
+test_item_edit:
+    pattern: /{id}/item/{pid}/edit
+    defaults: { _controller: OSPTTestBundle:Item:edit }
+
+test_item_delete:
+    pattern: /{id}/item/{pid}/delete
+    defaults: { _controller: OSPTTestBundle:Item:delete }
+
+# about state actions
+test_state_index:
+    pattern:  /{id}/state
+    defaults: { _controller: OSPTTestBundle:State:index }
+
+test_state_new:
+    pattern: /{id}/state/new
+    defaults: { _controller: OSPTTestBundle:State:new }
+
+test_state_view:
+    pattern: /{id}/state/{sid}/view
+    defaults: { _controller: OSPTTestBundle:State:view }
+
+test_state_edit:
+    pattern: /{id}/state/{sid}/edit
+    defaults: { _controller: OSPTTestBundle:State:edit }
+
+test_state_delete:
+    pattern: /{id}/state/{sid}/delete
+    defaults: { _controller: OSPTTestBundle:State:delete }
+
+
+# about conduct actions
+test_conduct_index:
+    pattern:  /{id}/conduct
+    defaults: { _controller: OSPTTestBundle:Conduct:index }
+
+test_conduct_state:
+    pattern: /{id}/conduct/{state}
+    defaults: { _controller: OSPTTestBundle:Conduct:state }
+

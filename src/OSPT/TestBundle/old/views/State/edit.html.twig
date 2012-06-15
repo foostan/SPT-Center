@@ -1,0 +1,41 @@
+<html>
+<head>
+	<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/js/jquery.regexSelector.js"></script>
+	<link rel="stylesheet" href="/css/hoge.css" type="text/css" />
+</head>
+<body>
+
+<form action="{{ path('test_state_edit', {'id':test_id, 'sid':test_sid}) }}" method="post" {{ form_enctype(form) }} novalidate>
+	<div>
+		<div id="test_state">
+			{{ form_widget(form._token)}}
+			{{ form_row(form.name) }}
+			{{ form_row(form.test_staType) }}
+			<div>
+				<div id="test_state_test_StaOptions" data-prototype="{{ form_widget(form.test_StaOptions.get('prototype')) | e }}">
+	        		{% for test_staOption in form.test_StaOptions %}
+						<div class="option">
+							<div id="test_state_test_StaOptions_{{ loop.index0}}">
+								{{ form_row(test_staOption.name) }}
+								{{ form_row(test_staOption.value) }}
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="submit" value="Save State" />
+</form>
+
+<a href="{{ path('test_state_index', {'id':test_id}) }}">Back</a>
+
+{% javascripts
+	'@OSPTTestBundle/Resources/public/js/makeTestStateForm.js'
+%}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+</body>
+</html>

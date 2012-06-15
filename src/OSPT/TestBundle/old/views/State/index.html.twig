@@ -1,0 +1,35 @@
+<h1>{{ test.name }} States</h1>
+<table>
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+		<th>CreateAt</th>
+		<th>UpdatedAt</th>
+		<th>Operation</th>
+	</tr>
+
+    {% for state in test.getTestStates() %}
+    <tr>
+        <td>{{ state.id }}</td>
+        <td><a href="{{ path('test_state_view', {'id':test.name, 'sid':state.id} ) }}">{{ state.name }}</a></td>
+        <td>{{ state.createdAt|date('Y/m/d H:i') }}</td>
+        <td>{{ state.updatedAt|date('Y/m/d H:i') }}</td>
+        <td>
+			<a href="{{ path('test_state_edit', {'id':test.name, 'sid':state.id}) }}">Edit</a>
+			<a href="{{ path('test_state_delete', {'id':test.name, 'sid':state.id}) }}">Delete</a>
+		</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5">No tests found</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<div>
+<a href="{{ path('test_state_new', {'id':test.name}) }}">add State</a>
+</div>
+<div>
+<a href="{{ path('test_index') }}">back to Index</a>
+</div>

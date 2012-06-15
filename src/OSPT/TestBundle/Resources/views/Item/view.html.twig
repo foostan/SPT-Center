@@ -1,0 +1,30 @@
+<h1>Item {{ item.name }}</h1>
+<p><small>
+	Id: {{ item.id }}<br />
+	Created: {{ item.createdAt|date('Y/m/d H:i') }}<br />
+	Updated: {{ item.updatedAt|date('Y/m/d H:i') }}<br />
+	statement: <br />
+	{{ item.statement }}
+</small></p>
+
+{% for question in item.getTestIteQuestions() %}
+	<h2>Question {{ question.name }}</h2>
+	<p><small>
+		PointRate: {{	question.pointRate }}<br />
+		Type: {{	question.getTestIteQueType().name }}<br />
+		Statement:  <br />
+		{{	question.statement }}
+	</small></p>
+
+	<table>
+		<tr><th>name</th><th>Statement</th><th>PointRate</th></tr>
+		{% for choice in question.getTestIteQueChoices() %}
+			<tr>
+				<td>{{ choice.name}}</td>
+				<td>{{ choice.statement}}</td>
+				<td>{{ choice.pointRate}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+
+{% endfor %}

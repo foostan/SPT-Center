@@ -1,0 +1,16 @@
+<h1>State {{ state.name }}</h1>
+<p><small>
+	Id: {{ state.id }}<br />
+	Created: {{ state.createdAt|date('Y/m/d H:i') }}<br />
+	Updated: {{ state.updatedAt|date('Y/m/d H:i') }}<br />
+	Type: {{ state.getTestStaType().name }}<br />
+</small></p>
+
+{% for option in state.getTestStaOptions() %}
+	<h2>Option {{ option.name }}</h2>
+	<p><small>
+		Value:  <br />
+		{{ option.value }}
+	</small></p>
+
+{% endfor %}

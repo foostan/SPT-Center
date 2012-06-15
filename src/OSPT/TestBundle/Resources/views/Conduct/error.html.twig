@@ -1,0 +1,16 @@
+{% extends 'OSPTTestBundle::layout.html.twig' %}
+
+{% block containerClass %}container{% endblock %}
+{% block body %}
+<div class="row">
+<div class="span12">
+	<div class="alert alert-error">
+		<h4 class="alert-heading">{{ errorTitle }}</h4>
+		<p>{{ errorMessage }}</p>
+		<p>実施途中のテストは強制的に終了となります。</p>
+	</div>
+	<a class="btn" href="{{ path('test_index') }}">Back to the home</a>
+</div>
+</div>
+
+{% endblock %}
